@@ -1,0 +1,11 @@
+INSERT INTO public.tb_users(
+	id, email, name, password, username)
+	VALUES (1, 'leo@leo', 'leo', '1212', 'lp');
+
+INSERT INTO public.tb_boards(
+	id, name, user_id)
+	VALUES (1, 'HUE', 1);
+
+INSERT INTO public.tb_cards(
+	id, description, status, board_id)
+	VALUES (1, 'dere', 1, 1);
