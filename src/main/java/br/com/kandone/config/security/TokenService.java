@@ -27,8 +27,8 @@ public class TokenService {
 		Date dataExpiration = new Date(today.getTime() + Long.parseLong(expiration));
 		
 		return Jwts.builder()
-				.setIssuer("API Kandone")
-				.setSubject(userLogged.getId().toString())
+				.setIssuer(userLogged.getName().toString())
+				.setSubject(userLogged.getEmail().toString())
 				.setIssuedAt(today)
 				.setExpiration(dataExpiration)
 				.signWith(SignatureAlgorithm.HS256, secret)
