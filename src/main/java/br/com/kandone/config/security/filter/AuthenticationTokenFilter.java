@@ -40,8 +40,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	}
 
 	private void authenticationClient(String token) {
-		Long idUser = tokenService.getIdUser(token);
-		User user = userRepository.findById(idUser).get();
+		String emailUser = tokenService.getEmailUser(token);
+		User user = userRepository.findByEmail(emailUser).get();
 		
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
