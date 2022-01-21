@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.kandone.repository.CardRepository;
 import br.com.kandone.service.exception.ResourceNotFoundException;
 import br.com.kandone.controller.dto.CardDTO;
+import br.com.kandone.controller.form.CardStatusForm;
 import br.com.kandone.model.Card;
 
 @Service
@@ -64,4 +65,21 @@ public class CardService {
 		CardDTO cardResponse = new CardDTO(cardSearch.get());
 		return cardResponse;
 	 }
+
+	public CardDTO updateStatusCard(Long id, CardStatusForm cardStatusForm) {
+		
+		Optional<Card> cardUpdate = this.cardRepository.findById(id); 
+		
+		if(cardUpdate.isEmpty()) {
+			throw new ResourceNotFoundException();
+		}
+		
+		Card cardPatch = cardUpdate.get();
+		cardPatch.setStatus(cardStatusForm.getStatus());
+		
+		this.cardRepository.save(cardPatch);
+		
+		CardDTO cardResponse = new CardDTO(cardPatch);
+		return cardResponse;
+	}
 }
