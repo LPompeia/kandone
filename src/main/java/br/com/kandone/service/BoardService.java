@@ -10,6 +10,7 @@ import br.com.kandone.controller.dto.BoardDTO;
 import br.com.kandone.controller.dto.HomeDTO;
 import br.com.kandone.model.Board;
 import br.com.kandone.model.Card;
+import br.com.kandone.model.User;
 import br.com.kandone.repository.BoardRepository;
 import br.com.kandone.repository.CardRepository;
 import br.com.kandone.service.exception.ResourceNotFoundException;
@@ -22,6 +23,15 @@ public class BoardService {
 	
 	@Autowired
 	CardRepository cardRepository;
+	
+	public Board createBoardDefault(User user) { 
+		
+		Board boardDefaultCreate = new Board();
+		boardDefaultCreate.setUser(user);
+		boardDefaultCreate.setName("Welcome " + user.getName());
+		
+		return boardRepository.save(boardDefaultCreate);
+	}
 		
 	public Board findById(Long id) { 
 		Optional<Board> boardSearch = this.boardRepository.findById(id);

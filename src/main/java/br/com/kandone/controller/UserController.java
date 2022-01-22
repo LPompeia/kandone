@@ -54,6 +54,12 @@ public class UserController {
 		return new ResponseEntity<Boolean>(statusUser, HttpStatus.OK);
 	}
 	
+	@GetMapping("/check/{email}") 
+	public ResponseEntity<Boolean> userExistsByEmail(@PathVariable String email) {
+		Boolean statusUser = this.userService.checkUserExistsByEmail(email);
+		return new ResponseEntity<Boolean>(statusUser, HttpStatus.OK);
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<TokenDto> authentication(@RequestBody LoginFormDTO loginFormDto) { 
 		UsernamePasswordAuthenticationToken dadosLogin = loginFormDto.converter();

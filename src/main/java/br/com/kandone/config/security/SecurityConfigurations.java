@@ -49,6 +49,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/user/signup").permitAll()
 		.antMatchers(HttpMethod.POST, "/user/login").permitAll()
 		.antMatchers(HttpMethod.GET, "/user/exists/*").permitAll()
+		.antMatchers(HttpMethod.GET, "/user/check/*").permitAll()
 		.anyRequest().authenticated()
 		.and().cors()
 		.and().csrf().disable()
