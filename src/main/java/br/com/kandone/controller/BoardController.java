@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,9 +37,9 @@ public class BoardController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<HomeDTO> findHomeByEmail(@RequestParam(value = "email") String email) {
+	public ResponseEntity<HomeDTO> findHomeByEmail() {
 		try {
-			HomeDTO home = this.boardService.findBoardWithAllCardsByEmail(email);
+			HomeDTO home = this.boardService.findBoardWithAllCardsByEmail();
 			return new ResponseEntity<HomeDTO>(home, HttpStatus.OK);
 		} catch(ResourceNotFoundException exception) { 
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found on card");

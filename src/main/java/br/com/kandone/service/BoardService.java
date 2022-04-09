@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.kandone.config.security.AuthenticationService;
 import br.com.kandone.controller.dto.BoardDTO;
 import br.com.kandone.controller.dto.HomeDTO;
 import br.com.kandone.model.Board;
@@ -17,6 +18,9 @@ import br.com.kandone.service.exception.ResourceNotFoundException;
 
 @Service
 public class BoardService {
+	
+	@Autowired
+	AuthenticationService authenticationService;
 
 	@Autowired
 	BoardRepository boardRepository;
@@ -56,8 +60,11 @@ public class BoardService {
 		
 	}
 	
-	public HomeDTO findBoardWithAllCardsByEmail(String email) { 
-		Optional<Board> boardSearchByEmail = this.boardRepository.findByUserEmail(email);
+	public HomeDTO findBoardWithAllCardsByEmail() { 
+		
+		String emailAuthenticated = this.authenticationService.recoveryEmailAuthentication();
+		
+		Optional<Board> boardSearchByEmail = this.boardRepository.findByUserEmail(emailAuthenticated);
 		
 		if(boardSearchByEmail.isEmpty()) {
 			throw new ResourceNotFoundException();

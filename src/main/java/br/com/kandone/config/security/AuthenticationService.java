@@ -3,6 +3,7 @@ package br.com.kandone.config.security;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +28,17 @@ public class AuthenticationService implements UserDetailsService {
 		}
 		
 		return user.get();
+	}
+	
+	public String recoveryEmailAuthentication()  { 
+		String usernameAuthentication = SecurityContextHolder.getContext().getAuthentication().getName();
+		Optional<User> userFindEmail = userRepository.findByUsername(usernameAuthentication);
+
+		if(userFindEmail.isEmpty()) { 
+			throw new UsernameNotFoundException("User not found during recovery email with token");
+		}
+		
+		return userFindEmail.get().getEmail();
 	}
 
 }
