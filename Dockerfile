@@ -13,7 +13,7 @@ ENV KANDONE_DATABASE_PASSWORD=default
 COPY ${JAR_FILE} app.jar
 
 # java -jar /opt/app/app.jar
-ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-Dspring.datasource.username=${KANDONE_DATABASE_USERNAME}", "-Dspring.datasource.password=${KANDONE_DATABASE_PASSWORD}", "-jar","app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-Dspring.datasource.url=${KANDONE_DATABASE_URL}", "-Dspring.datasource.username=${KANDONE_DATABASE_USERNAME}", "-Dspring.datasource.password=${KANDONE_DATABASE_PASSWORD}", "-jar","app.jar"]
 
 #Set your config after build application on maven. Command: mvn clear package
 # docker build -t kandone-back .
